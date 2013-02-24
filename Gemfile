@@ -12,7 +12,7 @@ group :test, :development do
 end
 
 group :test do
-	gem 'shoulda'
+	gem 'shoulda-matchers'
 end
 
 

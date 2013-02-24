@@ -84,10 +84,6 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    shoulda (3.3.2)
-      shoulda-context (~> 1.0.1)
-      shoulda-matchers (~> 1.4.1)
-    shoulda-context (1.0.2)
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
@@ -110,5 +106,5 @@ PLATFORMS
 DEPENDENCIES
   rails (= 3.2.12)
   rspec-rails (~> 2.0)
-  shoulda
+  shoulda-matchers
   sqlite3
