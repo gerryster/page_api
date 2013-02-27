@@ -5,10 +5,6 @@ class PagesController < ApplicationController
   before_filter :page_by_id,
       :only => [:show, :edit, :update, :destroy, :publish, :total_words]
 
-  def page_by_id
-    @page = Page.find(params[:id])
-  end
-
   # Disable CSRF protection for this RESTful API, for now.  I am not sure if I like this.
   skip_before_filter :verify_authenticity_token
 
@@ -60,5 +56,11 @@ class PagesController < ApplicationController
 
   def total_words
     respond_with @page.total_words
+  end
+
+  private
+
+  def page_by_id
+    @page = Page.find(params[:id])
   end
 end

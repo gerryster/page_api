@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-# These tests are extremely mock heavy.  I am using integration tests can
-# validate the whole stack.
+# These tests are extremely mock heavy.  See spec/requests/pages_spec.rb for
+# integration tests.
 describe PagesController do
   describe "GET index" do
     it "returns all posts" do
