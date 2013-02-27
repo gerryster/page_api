@@ -39,8 +39,10 @@ class PagesController < ApplicationController
   end
 
   def published
+    respond_with Page.published
   end
 
   def unpublished
+    respond_with Page.unpublished
   end
 end

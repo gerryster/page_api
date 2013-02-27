@@ -62,4 +62,18 @@ describe PagesController do
       delete :destroy, {:id => "42"}
     end
   end
+
+  describe "GET published" do
+    it "gets published pages" do
+      Page.should_receive(:published)
+      get :published
+    end
+  end
+
+  describe "GET unpublished" do
+    it "gets unpublished pages" do
+      Page.should_receive(:unpublished)
+      get :unpublished
+    end
+  end
 end
