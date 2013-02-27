@@ -38,5 +38,9 @@ describe PagesController do
     it "routes to #unpublished" do
       get("/api/pages/unpublished").should route_to("pages#unpublished")
     end
+
+    it "routes to #publish" do
+      post("/api/pages/1/publish").should route_to("pages#publish", :id => "1")
+    end
   end
 end

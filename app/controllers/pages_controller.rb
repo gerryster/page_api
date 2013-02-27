@@ -45,4 +45,11 @@ class PagesController < ApplicationController
   def unpublished
     respond_with Page.unpublished
   end
+
+  def publish
+    @page = Page.find(params[:id])
+    @page.published_on = Time.now
+    @page.save
+    respond_with @page
+  end
 end

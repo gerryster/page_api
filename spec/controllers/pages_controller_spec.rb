@@ -76,4 +76,15 @@ describe PagesController do
       get :unpublished
     end
   end
+
+  describe "POST publish" do
+    it "publishes a page" do
+      mock_page = mock_model(Page)
+      Page.should_receive(:find).with("42").and_return mock_page
+      mock_page.should_receive(:published_on=).with(kind_of(Time))
+      mock_page.should_receive(:save).and_return(:true)
+
+      post :publish, {:id => "42"}
+    end
+  end
 end

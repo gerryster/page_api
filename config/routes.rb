@@ -4,6 +4,10 @@ resources :pages, :path => "/api/pages" do
     get 'published'
     get 'unpublished'
   end
+
+  member do
+    post 'publish'
+  end
 end
 
   # The priority is based upon order of creation:
