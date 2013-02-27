@@ -54,4 +54,46 @@ describe Page do
       Page.unpublished.should == [unpublished1, unpublished2]
     end
   end
+
+  describe "#total_words" do
+    subject do
+      Page.new(params)
+    end
+
+    context "a new object has 0" do
+      let(:params) { {} }
+      its(:total_words) { should == 0 }
+    end
+
+    context "a one word title" do
+      let(:params) { {:title => "hello"} }
+      its(:total_words) { should == 1 }
+    end
+
+    context "a one word title, three word content" do
+      let(:params) { {:title => "hello", :content => "save big money"} }
+      its(:total_words) { should == 4 }
+    end
+  end
+
+  describe "#word_count" do
+    specify "nil" do
+      subject.send(:word_count, nil).should == 0 
+    end
+    specify "empty string" do
+      subject.send(:word_count, "").should == 0 
+    end
+    specify "whitespace string" do
+      subject.send(:word_count, " \n\t").should == 0 
+    end
+    specify "one word" do
+      subject.send(:word_count, "one").should == 1 
+    end
+    specify "two words" do
+      subject.send(:word_count, "one two").should == 2 
+    end
+    specify "two words separated by newlines and other witespace" do
+      subject.send(:word_count, " one\ntwo\t").should == 2 
+    end
+  end
 end
