@@ -33,4 +33,30 @@ describe Page do
       Page.published.should == [published2, published]
     end
   end
+
+  context "scope unpublished", :slow => true do
+    #let!(:unpublished) do
+    #  Page.create! :title => "tomorrow", :content => "published",
+    #      :published_on => 1.day.from_now
+    #end
+
+    it "returns pages with a null published_on" do
+      unpublished = Page.create! :title => "unpublished", :content => "foo"
+      Page.unpublished.should == [unpublished]
+    end
+
+    it "filters out pages with a published_on in the past" do
+      Page.create! :title => "unpublished", :content => "foo",
+          :published_on => 1.day.ago
+      Page.unpublished.should == []
+    end
+
+    it "returns pages in order of published_on" do
+      unpublished1 = Page.create! :title => "a day from now", :content => "unpublished",
+          :published_on => 1.day.from_now
+      unpublished2 = Page.create! :title => "an hour from now", :content => "unpublished",
+          :published_on => 1.hour.from_now
+      Page.unpublished.should == [unpublished1, unpublished2]
+    end
+  end
 end

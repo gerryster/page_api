@@ -5,4 +5,6 @@ class Page < ActiveRecord::Base
   validates_presence_of :title, :content
 
   scope :published, where("published_on < ?", Time.now).order("published_on desc")
+  scope :unpublished,
+      where("published_on > ? OR published_on IS NULL", Time.now).order("published_on desc")
 end
