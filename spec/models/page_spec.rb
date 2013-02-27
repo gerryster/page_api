@@ -35,11 +35,6 @@ describe Page do
   end
 
   context "scope unpublished", :slow => true do
-    #let!(:unpublished) do
-    #  Page.create! :title => "tomorrow", :content => "published",
-    #      :published_on => 1.day.from_now
-    #end
-
     it "returns pages with a null published_on" do
       unpublished = Page.create! :title => "unpublished", :content => "foo"
       Page.unpublished.should == [unpublished]
