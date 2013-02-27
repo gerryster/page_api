@@ -42,5 +42,9 @@ describe PagesController do
     it "routes to #publish" do
       post("/api/pages/1/publish").should route_to("pages#publish", :id => "1")
     end
+
+    it "routes to #total_words" do
+      get("/api/pages/1/total_words").should route_to("pages#total_words", :id => "1")
+    end
   end
 end

@@ -91,4 +91,13 @@ describe PagesController do
       post :publish, {:id => "42"}
     end
   end
+
+  describe "GET total_words" do
+    it "counts the words" do
+      mock_page = mock_model(Page)
+      Page.should_receive(:find).with("42").and_return(mock_page)
+      mock_page.should_receive(:total_words).and_return 2
+      get :total_words, {:id => 42}
+    end
+  end
 end

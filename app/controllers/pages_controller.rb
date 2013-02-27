@@ -52,4 +52,9 @@ class PagesController < ApplicationController
     @page.save
     respond_with @page
   end
+
+  def total_words
+    @page = Page.find(params[:id])
+    respond_with @page.total_words
+  end
 end

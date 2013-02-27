@@ -7,6 +7,7 @@ resources :pages, :path => "/api/pages" do
 
   member do
     post 'publish'
+    get 'total_words'
   end
 end
 
