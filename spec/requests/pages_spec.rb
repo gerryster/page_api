@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Pages" do
+describe "Pages", :slow => true do
   let!(:page) { Page.create! :title => "foo", :content => "bar" }
 
   describe "GET /api/pages" do
@@ -77,6 +77,43 @@ describe "Pages" do
       delete "/api/pages/#{page.id}.json"
       expect(response).to be_success
       expect(Page.count).to eq(0)
+    end
+  end
+
+  describe "GET /api/pages/published" do
+    it "returns a list of published pages" do
+      page.published_on = 1.hour.ago
+      page.save!
+
+      get "/api/pages/published.json"
+      expect(response).to be_success
+      expect(response.body).to include(page.to_json)
+      expect(JSON.parse(response.body).length).to eq(1)
+    end
+  end
+
+  describe "GET /api/pages/unpublished" do
+    it "returns a list of unpublished pages" do
+      get "/api/pages/unpublished.json"
+      expect(response).to be_success
+      expect(response.body).to include(page.to_json)
+      expect(JSON.parse(response.body).length).to eq(1)
+    end
+  end
+
+  describe "POST /api/pages/:id/publish" do
+    it "publishes a page" do
+      post "/api/pages/#{page.id}/publish.json", { :id => page.id.to_s }
+      expect(response).to be_success
+      expect(page.reload.published_on?).to be_true
+    end
+  end
+
+  describe "GET /api/pages/:id/total_words" do
+    it "returns the count of words" do
+      get "/api/pages/#{page.id}/total_words.json", { :id => page.id.to_s }
+      expect(response).to be_success
+      expect(response.body).to eq("2")
     end
   end
 end

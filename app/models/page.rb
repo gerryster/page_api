@@ -12,6 +12,10 @@ class Page < ActiveRecord::Base
     word_count(title) + word_count(content)
   end
 
+  def published?
+    published_on && published_on < Time.now
+  end
+
   private
 
   def word_count(string)
