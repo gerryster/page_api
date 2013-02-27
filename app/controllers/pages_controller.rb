@@ -1,6 +1,14 @@
 class PagesController < ApplicationController
   respond_to :json, :xml
 
+  # automatically look up all of the pages for all member actions
+  before_filter :page_by_id,
+      :only => [:show, :edit, :update, :destroy, :publish, :total_words]
+
+  def page_by_id
+    @page = Page.find(params[:id])
+  end
+
   # Disable CSRF protection for this RESTful API, for now.  I am not sure if I like this.
   skip_before_filter :verify_authenticity_token
 
@@ -9,7 +17,7 @@ class PagesController < ApplicationController
   end
 
   def show
-    respond_with Page.find(params[:id])
+    respond_with @page
   end
 
   def new
@@ -27,13 +35,11 @@ class PagesController < ApplicationController
   end
 
   def update
-    @page = Page.find(params[:id])
     @page.update_attributes(params[:page])
     respond_with @page
   end
 
   def destroy
-    @page = Page.find(params[:id])
     @page.destroy
     respond_with @page
   end
@@ -47,14 +53,12 @@ class PagesController < ApplicationController
   end
 
   def publish
-    @page = Page.find(params[:id])
     @page.published_on = Time.now
     @page.save
     respond_with @page
   end
 
   def total_words
-    @page = Page.find(params[:id])
     respond_with @page.total_words
   end
 end
