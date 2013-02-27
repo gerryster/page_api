@@ -1,5 +1,10 @@
 PageApi::Application.routes.draw do
-resources :pages, :path => "/api/pages"
+resources :pages, :path => "/api/pages" do
+  collection do
+    get 'published'
+    get 'unpublished'
+  end
+end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

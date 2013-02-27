@@ -31,5 +31,12 @@ describe PagesController do
       delete("/api/pages/1").should route_to("pages#destroy", :id => "1")
     end
 
+    it "routes to #published" do
+      get("/api/pages/published").should route_to("pages#published")
+    end
+
+    it "routes to #unpublished" do
+      get("/api/pages/unpublished").should route_to("pages#unpublished")
+    end
   end
 end

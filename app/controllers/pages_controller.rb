@@ -37,4 +37,10 @@ class PagesController < ApplicationController
     @page.destroy
     respond_with @page
   end
+
+  def published
+  end
+
+  def unpublished
+  end
 end
