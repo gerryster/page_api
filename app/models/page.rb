@@ -3,4 +3,6 @@ class Page < ActiveRecord::Base
 
   validates_uniqueness_of :title
   validates_presence_of :title, :content
+
+  scope :published, where("published_on < ?", Time.now).order("published_on desc")
 end
