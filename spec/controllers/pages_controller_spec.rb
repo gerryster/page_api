@@ -78,10 +78,14 @@ describe PagesController do
   end
 
   describe "POST publish" do
-    it "publishes a page" do
+    it "publishes a page now" do
       mock_page = mock_model(Page)
       Page.should_receive(:find).with("42").and_return mock_page
-      mock_page.should_receive(:published_on=).with(kind_of(Time))
+      mock_page.should_receive(:published_on=) do |published_on|
+        # In lieu of Timecop, verify that published on was set to a reasonably
+        # recently.
+        (published_on - Time.now).should < 60.seconds
+      end
       mock_page.should_receive(:save).and_return(:true)
 
       post :publish, {:id => "42"}
