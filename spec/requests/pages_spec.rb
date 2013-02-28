@@ -113,7 +113,7 @@ describe "Pages", :slow => true do
     it "returns the count of words" do
       get "/api/pages/#{page.id}/total_words.json", { :id => page.id.to_s }
       expect(response).to be_success
-      expect(response.body).to eq("2")
+      expect(JSON.parse(response.body)).to eq({"total_words" => 2})
     end
   end
 end

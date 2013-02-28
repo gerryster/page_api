@@ -55,7 +55,7 @@ class PagesController < ApplicationController
   end
 
   def total_words
-    respond_with @page.total_words
+    respond_with({ "total_words" => @page.total_words })
   end
 
   private
