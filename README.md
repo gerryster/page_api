@@ -1,3 +1,4 @@
-=Pages API=
+Pages API
+=========
 
 Experiment with RESTful Rails.
